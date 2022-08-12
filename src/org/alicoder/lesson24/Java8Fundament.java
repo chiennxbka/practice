@@ -72,8 +72,5 @@ public class Java8Fundament {
         List<String> stringList = peoples.stream().map(Person::getAddress).distinct().collect(Collectors.toList());
 
         System.out.println(1);
-
-
-
     }
 }
