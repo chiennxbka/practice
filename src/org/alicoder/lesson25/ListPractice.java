@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class CollectionPractice {
+public class ListPractice {
 
     public static void main(String[] args) {
         // dua ra thong bao cho nguoi dung muon
