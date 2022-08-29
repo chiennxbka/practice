@@ -41,3 +41,89 @@ SELECT DISTINCT(s.lesson_quantity) FROM subject s;
 SELECT s.id , s.name , s.faculty_id FROM subject s limit 3; -- lay ra 3 phan tu dau tien trong danh sach
 
 SELECT * FROM subject s limit 3, 3; -- lay ra max 3 phan tu ke tu phan tu thu 4
+
+-- alias, bí danh
+
+SELECT s.id identity_subject, s.name sub_name FROM subject as s;
+
+
+-- cac phep toan join
+-- inner join
+select s.name ten_mon_hoc , f.name khoa_vien FROM subject s inner join faculty f on s.faculty_id  = f.id;
+
+-- left join lay ra phan giao cua ca 2 bang va toan bo bang ben trai con lai
+
+SELECT cu .customerNumber , cu.customerName , od.orderNumber from customers cu left join orders od on cu.customerNumber = od.customerNumber;
+
+-- right join lay ra phan giao cua hai bang va toan bo bang ben phai
+
+SELECT
+    employeeNumber,
+    customerNumber
+FROM
+    customers
+RIGHT JOIN employees
+    ON salesRepEmployeeNumber = employeeNumber
+ORDER BY
+	employeeNumber;
+
+-- update sql table
+
+--  Auto-generated SQL script #202208292059
+UPDATE customers c
+	SET c.customerName='Atelier graphique update....'
+	WHERE c.customerNumber=103;
+
+
+-- xoa du lieu trong bang co filter data
+
+DELETE FROM subject WHERE id = 5;
+
+-- function trong mysql
+
+-- Ham min (lay ra gia tri nho nhat trong cot cua bang)
+
+SELECT MIN(o.quantityOrdered) FROM orderdetails o -- 6
+
+-- Ham max (lay ra gia tri lon nhat trong cot cua bang)
+
+SELECT MAX(o.quantityOrdered) FROM orderdetails o -- 97
+
+-- tinh tong gia tri cua mot cot
+
+select SUM(o.quantityOrdered) FROM orderdetails o
+
+-- tinh gia tri trung binh cua mot cot
+
+select AVG(o.quantityOrdered) from orderdetails o
+
+
+-- group by TABLE
+SELECT
+    status, COUNT(orders.orderNumber)
+FROM
+    orders
+GROUP BY status;
+
+
+-- sum and group BY
+
+SELECT
+    status,
+    SUM(quantityOrdered * priceEach) AS amount
+FROM
+    orders
+INNER JOIN orderdetails
+    USING (orderNumber)
+GROUP BY
+    status;
+
+
+   -- having filter dieu kien tu group BY
+   SELECT
+    orderNumber,
+    SUM(quantityOrdered * priceEach) AS total
+FROM
+    orderdetails
+GROUP BY
+    orderNumber HAVING total < 10000;
